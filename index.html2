@@ -1,0 +1,81 @@
+
+<!doctype html>
+<html>
+    <meta http-equiv=Content-Type content="text/html;charset=utf-8">
+         <link rel="stylesheet" href="//g.alicdn.com/de/prismplayer/2.5.0/skins/default/aliplayer-min.css" />
+         <script type="text/javascript" src="//g.alicdn.com/de/prismplayer/2.5.0/aliplayer-h5-min.js"></script>
+
+        <head>
+                <title>测试自适应播放器</title>
+        </head>
+
+        <body>
+                <div>
+                        测试地址：<br>
+                        http://video.youkouyang.com/test.mp4<br>
+                        http://video.youkouyang.com/test.flv<br>
+                        http://video.youkouyang.com/test.m3u8<br>
+			<br>输入URL : <input type="text" id="url" size="80" value="http://dongchics.oss-cn-hangzhou.aliyuncs.com/1.mp4"/>
+                        <button type="button"  onclick="play()" >Play</button>
+			<button type="button"  onclick="gettime()" >Gettime</button>
+			<button type="button"  onclick="change()" >Change</button>
+			<button type="button"  onclick="seek()" >Seek</button>
+                        <br>
+                        <br>
+                </div>
+                <div id="J_prismPlayer" class="prism-player"></div>   <!-- prism-player为h5播放器皮肤的钩子类名，请务必加上 -->
+                <script>
+			var player;
+                        function play()
+                        {
+                                var src = document.getElementById("url").value;
+                                player = new Aliplayer({
+                                        id: "J_prismPlayer",    // 容器id
+                                        autoplay: false,       // 自动播放
+                                        width: "600px",         // 播放器宽度
+                                        height: "600px",        // 播放器高度
+                                        //playsinline:true,
+                                        //extraInfo:{"fullTitle":"我是标题","liveStartTime":"2017/08/17 12:00:00","liveOverTime":"2017/08/17 14:00:00"},
+                                        cover: "http://dongchics.oss-cn-hangzhou.aliyuncs.com/1.jpg",
+					//waterMark:"http://dongchics.oss-cn-hangzhou.aliyuncs.com/1.png|TL|1|0.5",
+				        //isLive: true,
+				        //useH5Prism:true,
+					//preload: true,
+					//format:'m3u8',
+					source:src,
+					//x5_type:'h5',
+					x5_video_position:'top',
+					x5_fullscreen:false
+                                });
+			
+				player.on("ready", function() {
+					alert(1);
+				});
+				player.on("ended", function() {
+        		});
+				player.on("liveStreamStop", function() {
+                                        //alert("直播停止啦！");
+				})
+			
+                        }
+			function gettime(){
+				alert(player.getCurrentTime());
+				alert(player.getDuration())
+			}
+			 function change()
+                        {
+                                var newsrc = document.getElementById("url").value;
+                                player.loadByUrl(newsrc);
+			
+                        }
+			function seek()
+                        {
+                                var newsrc = document.getElementById("url").value;
+                                player.seek(10);
+
+                        }
+
+                </script>
+        </body>
+</html>
+
